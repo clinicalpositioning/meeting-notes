@@ -3,7 +3,7 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
 
     const formData = new FormData(this);
 
-    fetch('https://hook.eu2.make.com/ob6jz9596rxmhwfvvf453liq7thcn8c2', {
+    fetch('https://cors-anywhere.herokuapp.com/https://hook.eu2.make.com/ob6jz9596rxmhwfvvf453liq7thcn8c2', {
         method: 'POST',
         body: formData
     })
