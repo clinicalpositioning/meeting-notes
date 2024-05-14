@@ -1,11 +1,8 @@
 name: Submit Form
 
 on:
-  workflow_dispatch:
-  http:
-    methods: [POST]
-    paths:
-      - 'submit-form'
+  repository_dispatch:
+    types: [submit-form]
 
 jobs:
   submit_form:
@@ -23,4 +20,4 @@ jobs:
           node submit-form.js
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          DATA: ${{ toJson(github.event.inputs) }}
+          DATA: ${{ toJson(github.event.client_payload) }}
