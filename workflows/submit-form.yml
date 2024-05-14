@@ -1,0 +1,26 @@
+name: Submit Form
+
+on:
+  workflow_dispatch:
+  http:
+    methods: [POST]
+    paths:
+      - 'submit-form'
+
+jobs:
+  submit_form:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          npm install axios
+
+      - name: Submit form data
+        run: |
+          node submit-form.js
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          DATA: ${{ toJson(github.event.inputs) }}
