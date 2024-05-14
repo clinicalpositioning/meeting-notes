@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+</head>
+<body>
+    <script>
+        // Get the form data from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const formData = Object.fromEntries(urlParams.entries());
+
+        // Send the form data to the GitHub Actions workflow
+        fetch('https://api.github.com/repos/your-username/your-repo/dispatches', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN'
+            },
+            body: JSON.stringify({
+                event_type: 'submit-form',
+                client_payload: formData
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'thankyou.html';
+            } else {
+                alert('Error submitting the form. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error submitting the form. Please try again.');
+        });
+    </script>
+</body>
+</html>
